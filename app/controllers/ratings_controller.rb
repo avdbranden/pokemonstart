@@ -11,7 +11,12 @@ class RatingsController < ApplicationController
     end
   end
 
-  def update         # PATCH /ratings/:id
+  def update         # PATCH pokemons/:id/ratings/:id
+    @pokemon = Pokemon.find(params[:pokemon_id])
+    @rating = Rating.find(params[:id])
+    @rating.update(rating_params)
+    @rating.save
+    redirect_to pokemon_path(@pokemon)
   end
 
   private

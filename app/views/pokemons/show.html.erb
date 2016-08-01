@@ -15,6 +15,7 @@
         <div class="pokemon-image">
           <%= image_tag("#{@pokemon.name.downcase}.png")%>
         </div>
+        <%= link_to "Back to Pokémon", pokemons_path, class: "btn btn-primary" %>
       </div>
       <div class="col-xs-12 col-md-4 col-md-offset-1">
         <p><strong>Number: </strong><%= @pokemon.number %></p>
@@ -44,13 +45,27 @@
             <% end %>
         </div>
         <p>Ratings based on: <%= pluralize @pokemon.ratings.size, "rating" %></p>
-        <%= link_to "Back to Pokémon", pokemons_path, class: "btn btn-primary" %>
-        <div id="rating-form">
-          <%= simple_form_for [@pokemon, @rating] do |f| %>
-            <%= f.input :stars, collection: 1..5, prompt: "Rate between 1 and 5"%>
-            <%= f.submit "Save", class: "btn btn-success" %>
-          <% end %>
-        </div>
+        <% if current_user.ratings.any? %>
+          <div id="rating-form-new">
+            <% @rating = current_user.ratings.last %>
+            <div id="rating-current">
+              <p>
+                <strong>Current rating is: </strong><%= @rating.stars %>
+              </p>
+            </div>
+            <%= simple_form_for [@pokemon, @rating], url: url_for([@pokemon, @rating]), method: :patch do |f| %>
+              <%= f.input :stars, collection: 1..5, selected: @rating.stars %>
+              <%= f.submit "Update rating", class: "btn btn-success" %>
+            <% end %>
+          </div>
+        <% else %>
+          <div id="rating-form-new">
+            <%= simple_form_for [@pokemon, @rating] do |f| %>
+              <%= f.input :stars, collection: 1..5, prompt: "Rate between 1 and 5"%>
+              <%= f.submit "Save rating", class: "btn btn-success" %>
+            <% end %>
+          </div>
+        <% end %>
       </div>
     </div>
   </div>
