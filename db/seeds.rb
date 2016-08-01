@@ -7,9 +7,10 @@ Rating.destroy_all
 
 # Create 10 random users
 
+counter = 0
 10.times do
   User.create!({
-    email: Faker::Internet.email,
+    email: "test#{counter += 1}@test.com",
     password: "passpass",
     first_name: Faker::Name.first_name,
     last_name: Faker::Name.last_name,
