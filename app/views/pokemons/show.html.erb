@@ -45,9 +45,6 @@
         </div>
         <p>Ratings based on: <%= pluralize @pokemon.ratings.size, "rating" %></p>
         <%= link_to "Back to Pokémon", pokemons_path, class: "btn btn-primary" %>
-        <% @pokemon.ratings.each do |rating| %>
-          <%= rating.stars %>
-        <% end %>
         <div id="rating-form">
           <%= simple_form_for [@pokemon, @rating] do |f| %>
             <%= f.input :stars, collection: 1..5, prompt: "Rate between 1 and 5"%>
