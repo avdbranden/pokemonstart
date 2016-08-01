@@ -45,9 +45,10 @@
         </div>
         <p>Ratings based on: <%= pluralize @pokemon.ratings.size, "rating" %></p>
         <%= link_to "Back to Pokémon", pokemons_path, class: "btn btn-primary" %>
-        <div id="ratings">
-          <% if @pokemon.ratings.any? %>
-            <p>Rate <%= @pokemon.name %> now !</p>
+        <div id="rating-form">
+          <%= simple_form_for [@pokemon, @rating] do |f| %>
+            <%= f.input :stars, collection: 1..5, prompt: "Rate between 1 and 5"%>
+            <%= f.submit "Save", class: "btn btn-success" %>
           <% end %>
         </div>
       </div>

@@ -3,7 +3,9 @@ Rails.application.routes.draw do
   devise_for :users
 
   # Routes for Pokemon
-  resources :pokemons, only: %i(index show)
+  resources :pokemons, only: %i(index show) do
+    resources :ratings, only: %i(create update)
+  end
 
   # Homepage
   root to: 'pages#home'
