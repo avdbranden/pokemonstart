@@ -1,1 +1,36 @@
-<h1>Here is your data journal</h1>
+<div class="data-journal text-center">
+  <div class="container">
+    <div class="row">
+      <div class="col-xs-12 col-md-10 col-md-offset-1">
+        <div class="data-journal-first">
+          <h1>Data privacy dashboard</h1>
+          <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Esse nobis debitis atque qui officia, tenetur laudantium nulla illum aliquid, error eaque unde fugit eveniet ea, mollitia asperiores eum sapiente quaerat!</p>
+          <h2>Data currently udergoind processing</h2>
+        </div>
+        <div class="table-responsive data-privacy-table">
+          <table class="table table-striped table-hover table-bordered">
+            <thead>
+              <tr>
+                <td>#</td>
+                <td>Type</td>
+                <td>Data</td>
+              </tr>
+            </thead>
+            <tbody>
+              <% column_names = User.column_names %>
+              <% # raise %>
+              <% counter = 0 %>
+              <% current_user.attributes.each do |type, data| %>
+              <tr>
+                <td><%= counter += 1 %></td>
+                <td><%= type %></td>
+                <td><%= data %></td>
+              </tr>
+              <% end %>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
