@@ -7,6 +7,7 @@ class User < ActiveRecord::Base
 
   # == Relationships ========================================================
   has_many :ratings, dependent: :destroy
+  has_one :data_journal
 
   # == Validations ==========================================================
   validates :email, presence: true, uniqueness: true
