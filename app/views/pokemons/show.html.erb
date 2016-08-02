@@ -53,6 +53,7 @@
                 <strong>Current rating is: </strong><%= @rating.stars %>
               </p>
             </div>
+            <% # Use url_for to match the patch route %>
             <%= simple_form_for [@pokemon, @rating], url: url_for([@pokemon, @rating]), method: :patch do |f| %>
               <%= f.input :stars, collection: 1..5, selected: @rating.stars %>
               <%= f.submit "Update rating", class: "btn btn-success" %>
@@ -60,7 +61,11 @@
           </div>
         <% else %>
           <div id="rating-form-new">
+            <p>Rate <%= @pokemon.name %> Now!</p>
             <%= simple_form_for [@pokemon, @rating] do |f| %>
+              <% # Use hidden_field tags to work with nested resources %>
+              <%= f.hidden_field :pokemon_id, value: @pokemon.id %>
+              <%= f.hidden_field :user_id, value: current_user.id %>
               <%= f.input :stars, collection: 1..5, prompt: "Rate between 1 and 5"%>
               <%= f.submit "Save rating", class: "btn btn-success" %>
             <% end %>
