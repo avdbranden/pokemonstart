@@ -1,4 +1,4 @@
-class User < ActiveRecord::Base
+class Rating < ActiveRecord::Base
   # == Constants ============================================================
 
   # == Attributes ===========================================================
@@ -6,20 +6,15 @@ class User < ActiveRecord::Base
   # == Extensions ===========================================================
 
   # == Relationships ========================================================
-  has_many :ratings, dependent: :destroy
+  belongs_to :user
 
   # == Validations ==========================================================
-  validates :email, presence: true, uniqueness: true
-  validates :first_name, presence: true
-  validates :last_name, presence: true
+  belongs_to :pokemon
+  validates :stars, presence: true
 
   # == Scopes ===============================================================
 
   # == Callbacks ============================================================
-  # Include default devise modules. Others available are:
-  # :confirmable, :lockable, :timeoutable and :omniauthable
-  devise :database_authenticatable, :registerable,
-         :recoverable, :rememberable, :trackable, :validatable
 
   # == Class Methods ========================================================
 

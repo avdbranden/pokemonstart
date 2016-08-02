@@ -1,0 +1,78 @@
+<div class="title-show">
+  <div class="container">
+    <div class="row">
+      <div class="col-xs-12 col-md-6 col-md-offset-3 text-center">
+        <h1><%= @pokemon.name %></h1>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="pokemon-show">
+  <div class="container">
+    <div class="row">
+      <div class="col-xs-12 col-md-4 col-md-offset-1 text-center">
+        <div class="pokemon-image">
+          <%= image_tag("#{@pokemon.name.downcase}.png")%>
+        </div>
+        <%= link_to "Back to Pokémon", pokemons_path, class: "btn btn-primary" %>
+      </div>
+      <div class="col-xs-12 col-md-4 col-md-offset-1">
+        <p><strong>Number: </strong><%= @pokemon.number %></p>
+        <p><strong>Category: </strong><%= @pokemon.category %></p>
+        <p><strong>Height: </strong><%= @pokemon.height %> m</p>
+        <p><strong>Weight: </strong><%= @pokemon.weight %> kg</p>
+        <ul class="list-unstyled">
+          <p><strong>Moves: </strong></p>
+          <% @pokemon.moves.each do |move| %>
+            <li><%= move.name %>
+              ( <%= move.move_cat %> )
+            </li>
+          <% end %>
+        </ul>
+        <div class="rating-show">
+          <% results = [] %>
+          <% @pokemon.ratings.each do |rating| %>
+            <% results << rating.stars %>
+          <% end %>
+          <% star_number = results.reduce(:+) / @pokemon.ratings.count %>
+          <p><strong>Average rating: </strong>
+            <% star_number.times do %>
+              <i class="fa fa-star-o"></i>
+            <% end %>
+            <% (5 - star_number).times do %>
+              <i class="fa fa-star"></i>
+            <% end %>
+        </div>
+        <p>Ratings based on: <%= pluralize @pokemon.ratings.size, "rating" %></p>
+        <% if current_user.ratings.any? %>
+          <div id="rating-form-new">
+            <% @rating = current_user.ratings.last %>
+            <div id="rating-current">
+              <p>
+                <strong>Current rating is: </strong><%= @rating.stars %>
+              </p>
+            </div>
+            <% # Use url_for to match the patch route %>
+            <%= simple_form_for [@pokemon, @rating], url: url_for([@pokemon, @rating]), method: :patch do |f| %>
+              <%= f.input :stars, collection: 1..5, selected: @rating.stars %>
+              <%= f.submit "Update rating", class: "btn btn-success" %>
+            <% end %>
+          </div>
+        <% else %>
+          <div id="rating-form-new">
+            <p>Rate <%= @pokemon.name %> Now!</p>
+            <%= simple_form_for [@pokemon, @rating] do |f| %>
+              <% # Use hidden_field tags to work with nested resources %>
+              <%= f.hidden_field :pokemon_id, value: @pokemon.id %>
+              <%= f.hidden_field :user_id, value: current_user.id %>
+              <%= f.input :stars, collection: 1..5, prompt: "Rate between 1 and 5"%>
+              <%= f.submit "Save rating", class: "btn btn-success" %>
+            <% end %>
+          </div>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>
+

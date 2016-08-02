@@ -1,4 +1,4 @@
-class User < ActiveRecord::Base
+class Move < ActiveRecord::Base
   # == Constants ============================================================
 
   # == Attributes ===========================================================
@@ -6,20 +6,16 @@ class User < ActiveRecord::Base
   # == Extensions ===========================================================
 
   # == Relationships ========================================================
-  has_many :ratings, dependent: :destroy
+  belongs_to :pokemon
 
   # == Validations ==========================================================
-  validates :email, presence: true, uniqueness: true
-  validates :first_name, presence: true
-  validates :last_name, presence: true
+  validates :name, presence: true
+  validates :move_cat, presence: true
+  # Do not name a colum 'type', as this will create problems in Rails
 
   # == Scopes ===============================================================
 
   # == Callbacks ============================================================
-  # Include default devise modules. Others available are:
-  # :confirmable, :lockable, :timeoutable and :omniauthable
-  devise :database_authenticatable, :registerable,
-         :recoverable, :rememberable, :trackable, :validatable
 
   # == Class Methods ========================================================
 

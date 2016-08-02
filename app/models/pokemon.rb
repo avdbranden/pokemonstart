@@ -1,4 +1,4 @@
-class User < ActiveRecord::Base
+class Pokemon < ActiveRecord::Base
   # == Constants ============================================================
 
   # == Attributes ===========================================================
@@ -6,23 +6,18 @@ class User < ActiveRecord::Base
   # == Extensions ===========================================================
 
   # == Relationships ========================================================
+  has_many :moves, dependent: :destroy
   has_many :ratings, dependent: :destroy
 
   # == Validations ==========================================================
-  validates :email, presence: true, uniqueness: true
-  validates :first_name, presence: true
-  validates :last_name, presence: true
+  validates :name, presence: true, uniqueness: true
+  validates :number, presence: true, uniqueness: true
 
   # == Scopes ===============================================================
 
   # == Callbacks ============================================================
-  # Include default devise modules. Others available are:
-  # :confirmable, :lockable, :timeoutable and :omniauthable
-  devise :database_authenticatable, :registerable,
-         :recoverable, :rememberable, :trackable, :validatable
 
   # == Class Methods ========================================================
 
   # == Instance Methods =====================================================
-
 end
