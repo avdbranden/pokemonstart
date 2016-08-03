@@ -45,9 +45,9 @@
             <% end %>
         </div>
         <p>Ratings based on: <%= pluralize @pokemon.ratings.size, "rating" %></p>
-        <% if current_user.ratings.any? %>
+        <% if @pokemon.ratings.where(user_id: current_user.id).exists? %>
           <div id="rating-form-new">
-            <% @rating = current_user.ratings.last %>
+            <% @rating = @pokemon.ratings.where(user_id: current_user.id).last %>
             <div id="rating-current">
               <p>
                 <strong>Current rating is: </strong><%= @rating.stars %>
