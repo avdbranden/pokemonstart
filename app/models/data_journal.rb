@@ -13,6 +13,7 @@ class DataJournal < ActiveRecord::Base
   has_many :uploads
 
   # == Validations ==========================================================
+  validates :user_id, presence: true, uniqueness: true
 
   # == Scopes ===============================================================
 
