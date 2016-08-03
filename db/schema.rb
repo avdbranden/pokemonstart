@@ -39,12 +39,12 @@ ActiveRecord::Schema.define(version: 20160802135948) do
   create_table "data_journals", force: :cascade do |t|
     t.integer  "user_id"
     t.boolean  "consent_active",                        default: true, null: false
-    t.integer  "consent_given_count"
+    t.integer  "consent_given_count",                   default: 1,    null: false
     t.datetime "current_consent_given_at"
-    t.integer  "consent_withdrawn_count"
+    t.integer  "consent_withdrawn_count",               default: 0,    null: false
     t.datetime "current_consent_withdrawn_at"
     t.integer  "latest_dp_version_id_consent_given_to"
-    t.integer  "data_actions_count"
+    t.integer  "data_actions_count",                    default: 0,    null: false
     t.datetime "latest_data_action_at"
     t.datetime "created_at",                                           null: false
     t.datetime "updated_at",                                           null: false
