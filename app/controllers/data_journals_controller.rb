@@ -1,11 +1,14 @@
 class DataJournalsController < ApplicationController
   before_action :set_data_journal, only: %i(index)
 
+  # Custom helper to enable use of 'required' in data_journal view
+  helper_method :required?
+
   def index
     # If a data_journal is in DB, show it, otherwise, create one
-    @data_journal.exists? ? @data_journal : create
+    # Use 'first' when exists because @data_journal is a AR collection 'where
+    @data_journal = @data_journal.exists? ? @data_journal.first : create
     @attributes = filter_attributes
-    # raise
   end
 
   def create
@@ -16,6 +19,16 @@ class DataJournalsController < ApplicationController
       redirect_to root_path
     end
   end
+
+  # Custom method to check whether attribute of instance presence: true
+  # See http://stackoverflow.com/questions/7829996/rails-how-to-test-if-an-
+  #attribute-of-a-class-object-is-required-in-the-model-po
+  # http://apidock.com/rails/ActiveModel/Validations/ClassMethods/validators_on
+  def required?(model, attr)
+    model.validators_on(attr.to_sym).first.class == ActiveRecord::Validations::PresenceValidator
+  end
+
+  # required?(Class, :attribute)
 
   private
 
