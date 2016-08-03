@@ -4,18 +4,30 @@ class DataJournalsController < ApplicationController
   # Custom helper to enable use of 'required' in data_journal view
   helper_method :required?
 
-  def index
+  def index             # GET users/:id/data_journals
     # If a data_journal is in DB, show it, otherwise, create one
     # Use 'first' when exists because @data_journal is a AR collection 'where
     @data_journal = @data_journal.exists? ? @data_journal.first : create
     @attributes = filter_attributes
   end
 
-  def create
+  def create            # POST users/:id/data_journals
     @data_journal = DataJournal.new(user_id: params[:user_id])
     if @data_journal.save
       @data_journal
     else
+      redirect_to root_path
+    end
+  end
+
+  def update           # PATCH users/:id/data_journals/:id
+    @data_journal = DataJournal.find(params[:id])
+    # Check whether user has put valid password to confirm changes
+    if current_user.valid_password?(params[:data_journal][:current_password])
+      @valid = "Valid"
+      redirect_to user_data_journals_path(current_user)
+    else
+      @valid = "Failed"
       redirect_to root_path
     end
   end

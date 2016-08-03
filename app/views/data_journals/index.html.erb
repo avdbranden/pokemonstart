@@ -19,20 +19,13 @@
         <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Esse nobis debitis atque qui officia, tenetur laudantium nulla illum aliquid, error eaque unde fugit eveniet ea, mollitia asperiores eum sapiente quaerat!</p>
         <p></p>
 
-        <div class="password-confirmation">
-          <p> confirm your password to proceed:</p>
-        </div>
-
+        <!-- Authorize changes button-->
         <div class="data-journal-manage-auth-btn text-center">
-          <div class="container">
-            <div class="row">
-              <div class="col-xs-12 col-md-10 col-md-offset-1">
-                <%= link_to "Change data privacy authorizations", "", class: "btn btn-primary btn-lg", id: "btn-authorize" %>
-              </div>
-            </div>
-          </div>
+          <%= link_to "Change data privacy authorizations", "", class: "btn btn-primary btn-lg", id: "btn-authorize" %>
         </div>
 
+
+        <!-- Overview data table-->
         <div class="table-responsive data-privacy-table">
           <table class="table table-striped table-hover table-bordered">
             <thead>
@@ -54,7 +47,8 @@
                 <td><%= data %></td>
                 <% # Use of required? helper %>
                 <% # if User model validates presence true of type %>
-                <% # add 'required' class to input checkbox %>
+                <% # -add 'required' and 'danger' class to input checkbox %>
+                <% # -fire warning tooltip %>
                 <% if required?(User, type) %>
                 <td class="danger consent-td" data-toggle="tooltip" data-placement="right" title="Data mandatory for continuing processing">
                   <div class="consent-status">
@@ -64,14 +58,21 @@
                     <input type="checkbox" id="<%= type %>" class="consent-status disabled required" checked="checked" disabled="disabled">
                   </div>
                   <div class="consent-warning">
-                    Required*
+                    (Required)
                   </div>
                 </td>
                 <% # if not, add 'not-required' class to input checkbox %>
                 <% else %>
-                  <td>
-                    <%= consent_status %>
-                    <input type="checkbox" id="<%= type %>" class="consent-status disabled not-required" checked="checked" disabled="disabled">
+                  <td class="primary consent-td">
+                    <div class="consent-status">
+                      <%= consent_status %>
+                    </div>
+                    <div class="consent-checkbox">
+                      <input type="checkbox" id="<%= type %>" class="consent-status disabled not-required" checked="checked" disabled="disabled">
+                    </div>
+                    <div class="consent-warning">
+                      (Optional)
+                    </div>
                   </td>
                 <% end %>
                 <td><%= current_user.created_at.strftime("%b %d, %Y") %></td>
@@ -80,6 +81,21 @@
             </tbody>
           </table>
         </div>
+
+        <!-- Confirm changes button-->
+        <div id="password-confirmation">
+          <%= simple_form_for [current_user, @data_journal], url: url_for([current_user, @data_journal]), method: :patch do |f| %>
+            <%= f.error_notification %>
+             <div class="form-inputs">
+               <%= f.input :current_password, hint: "we need your current password to confirm your changes", required: true %>
+             </div>
+             <div class="form-actions">
+               <%= f.button :submit, "Confirm changes", class: "btn btn-danger btn-lg" %>
+             </div>
+           <% end %>
+        </div>
+
+
       </div>
     </div>
   </div>
