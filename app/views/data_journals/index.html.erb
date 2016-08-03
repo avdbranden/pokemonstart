@@ -1,6 +1,3 @@
-<%= @failed %>
-<%= @data_journal %>
-
 <div class="data-journal text-center">
   <div class="container">
     <div class="row">
@@ -23,7 +20,7 @@
               <% column_names = User.column_names %>
               <% # raise %>
               <% counter = 0 %>
-              <% current_user.attributes.each do |type, data| %>
+              <% @attributes.each do |type, data| %>
               <tr>
                 <td><%= counter += 1 %></td>
                 <td><%= type %></td>
