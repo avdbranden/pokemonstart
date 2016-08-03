@@ -9,7 +9,7 @@ Rating.destroy_all
 
 counter = 0
 10.times do
-  User.create!({
+  user = User.create!({
     email: "test#{counter += 1}@test.com",
     password: "passpass",
     first_name: Faker::Name.first_name,
@@ -19,6 +19,7 @@ counter = 0
     birth_date: Faker::Date.between(15000.days.ago, 7500.days.ago),
     occupation: "Pokémon trainer"
   })
+  puts "Created #{user.email}"
 end
 
 ## Create Pokémon
@@ -31,6 +32,7 @@ bulbasaur = Pokemon.create!({
   height: 0.7,
   weight: 6.9
 })
+puts "Created #{bulbasaur.name}"
 
 Move.create!({
   name: "Tackle",
@@ -55,6 +57,9 @@ Move.create!({
   move_cat: "Grass",
   pokemon_id: bulbasaur.id
 })
+bulbasaur.moves.each do |move|
+  puts "Created #{move.name} for #{bulbasaur.name}"
+end
 
 # Create Charmander with associated moves
 
@@ -65,6 +70,7 @@ charmander = Pokemon.create!({
   height: 0.6,
   weight: 8.5
 })
+puts "Created #{charmander.name}"
 
 Move.create!({
   name: "Scratch",
@@ -89,6 +95,9 @@ Move.create!({
   move_cat: "Dragon",
   pokemon_id: charmander.id
 })
+charmander.moves.each do |move|
+  puts "Created #{move.name} for #{charmander.name}"
+end
 
 # Create Squirtle with associated moves
 
@@ -99,6 +108,7 @@ squirtle = Pokemon.create!({
   height: 0.5,
   weight: 9.0
 })
+puts "Created #{squirtle.name}"
 
 Move.create!({
   name: "Tail whip",
@@ -123,6 +133,9 @@ Move.create!({
   move_cat: "Water",
   pokemon_id: squirtle.id
 })
+squirtle.moves.each do |move|
+  puts "Created #{move.name} for #{squirtle.name}"
+end
 
 # Create Pikachu with associated moves
 
@@ -133,6 +146,7 @@ pikachu = Pokemon.create!({
   height: 0.4,
   weight: 6.0
 })
+puts "Created #{pikachu.name}"
 
 Move.create!({
   name: "Quick attack",
@@ -151,6 +165,9 @@ Move.create!({
   move_cat: "Electric",
   pokemon_id: pikachu.id
 })
+pikachu.moves.each do |move|
+  puts "Created #{move.name} for #{pikachu.name}"
+end
 
 ## Create ratings
 # Each user assigns one rating to each Pokémon
@@ -162,5 +179,6 @@ User.all.each do |user|
       pokemon_id: pokemon.id,
       user_id: user.id
     })
+    puts "Created rating for #{pokemon.name} by #{user.email}"
   end
 end
