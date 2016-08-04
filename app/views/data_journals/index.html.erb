@@ -15,9 +15,16 @@
   <div class="container">
     <div class="row">
       <div class="col-xs-12 col-md-10 col-md-offset-1">
-        <h2>Data currently udergoing processing</h2>
-        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Esse nobis debitis atque qui officia, tenetur laudantium nulla illum aliquid, error eaque unde fugit eveniet ea, mollitia asperiores eum sapiente quaerat!</p>
-        <p></p>
+        <div class="data-journal-bullet-points">
+          <h2>Data currently udergoing processing</h2>
+          <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Esse nobis debitis atque qui officia, tenetur laudantium nulla illum aliquid, error eaque unde fugit eveniet ea, mollitia asperiores eum sapiente quaerat!</p>
+          <p></p>
+          <ul>
+            <li>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Itaque deserunt numquam velit doloribus optio rem illo aliquam autem id nisi excepturi ab qui odio consequuntur, ad tempore earum magni dolorum.</li>
+            <li>Sed exercitationem repellat expedita reprehenderit nemo iste nulla aperiam odio, aliquam optio officiis fugiat, commodi quo laudantium. Consequuntur ipsum porro, sequi tempore repellat, voluptatibus, provident assumenda repudiandae eius nemo quo?</li>
+            <li>Expedita, recusandae minus quaerat suscipit cumque, aliquam, possimus est molestiae provident dicta fugit nihil deleniti, perspiciatis iste officiis facilis sapiente dolore. Molestias laborum expedita modi quos alias officia quibusdam, repellendus.</li>
+          </ul>
+        </div>
 
         <!-- Authorize changes button-->
         <div class="data-journal-manage-auth-btn text-center">
@@ -61,7 +68,7 @@
                     <% if required?(User, type) %>
 
                       <td class="consent-td">
-                        <div class="consent-checkbox">
+                        <div class="consent-checkbox required">
                           <%= f.input type.to_sym, as: :boolean, label: consent_status, disabled: true, class: "consent-status required", :input_html => { :checked => true } %>
                         </div>
                       </td>
@@ -96,15 +103,42 @@
             </table>
           </div>
 
+          <div class="container">
+            <div class="row">
+              <div class="col-xs-12 col-md-6 col-md-offset-2">
+                <!-- Show up when required data checked-->
+                <div id="about-to-leave" class="hidden">
+                  <div class="panel panel-danger">
+                    <div class="panel-heading">
+                      <h4>The data you selected is required for Pokémon starter to continue the services</p>
+                    </div>
+                    <div class="panel-body">
+                      <h4>Warning</h2>
+                      <p>When confirming the changes below your account will be deleted and you will leave the application</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
           <!-- Confirm changes button-->
-          <div id="password-confirmation">
-            <%= f.error_notification %>
-              <div class="form-inputs">
-                <%= f.input :current_password, hint: "we need your current password to confirm your changes", required: true %>
+          <div class="container">
+            <div class="row">
+              <div class="div col-xs-12 col-md-4 col-md-offset-3">
+                <div id="password-confirmation panel">
+                  <div class="panel-footer">
+                    <%= f.error_notification %>
+                    <div class="form-inputs">
+                      <%= f.input :current_password, hint: "we need your current password to confirm your changes", required: true %>
+                    </div>
+                    <div class="form-actions text-center">
+                      <%= f.button :submit, "Confirm changes", class: "btn btn-danger btn-lg" %>
+                    </div>
+                  </div>
+                </div>
               </div>
-              <div class="form-actions">
-                <%= f.button :submit, "Confirm changes", class: "btn btn-danger btn-lg" %>
-              </div>
+            </div>
           </div>
 
           <!-- END of big hidden form-->

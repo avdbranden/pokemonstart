@@ -2,10 +2,22 @@
   text-align: left;
 }
 
+.data-journal-data-overview {
+  margin-top: 100px;
+}
 .data-journal-data-overview  h2 {
   text-align: center;
 }
-
 .data-journal-data-overview  p {
   text-align: left;
+}
+
+div.hidden {
+  display: none;
+}
+.panel h4 {
+  text-align: center;
+}
+.panel p {
+  text-align: center;
 }

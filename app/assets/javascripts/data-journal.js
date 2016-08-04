@@ -8,7 +8,23 @@ $( document ).ready(function() {
   });
 
   // Fire tooltip
-  $(function () {
+  $(function() {
     $('.required').tooltip()
   })
+
+  // Show/hide warning message when data required checked/unchecked
+  $(function() {
+    $('div.consent-checkbox').click(function(event){
+      var clear = $('div.required input.boolean:checked').length;
+      console.log(clear);
+      if ( clear != 3 ) {
+        console.log($('div.required input.boolean'));
+        $('div#about-to-leave').removeClass('hidden');
+      } else {
+        console.log("there");
+        $('div#about-to-leave').addClass('hidden');
+      }
+    });
+  });
+
 });
