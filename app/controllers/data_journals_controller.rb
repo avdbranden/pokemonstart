@@ -75,25 +75,29 @@ class DataJournalsController < ApplicationController
 
   def data_journal_params
     # Strong params
-    params.require(:data_journal).permit(:email, :first_name, :last_name, :address, :phone_number,
+    params.require(:data_journal).permit(:email,
+    :first_name, :last_name,
+    :address, :phone_number,
     :birth_date, :occupation)
   end
 
   def sort_params(data_journal_params)
     sorted_params = {}
-    data_journal_params.each do |data, checked|
+    # Keep unchecked params only
+    unchecked_params = filter_attributes.keys - data_journal_params.keys
+    # Iterate through the unchecked params
+    unchecked_params.each do |data_unchecked|
       # If the data required & checked not to be unprocessed
       # Change data by 'destroy' to tell controller to destroy
-      if required?(User, data) && checked == "1"
-        sorted_params[data] = "destroy"
+      if required?(User, data_unchecked)
+        sorted_params[data_unchecked] = "destroy"
       # If the data optional & checked not to be unprocessed
       # Change data by 'nil' to erase them from database
-      elsif checked == "1"
-        sorted_params[data] = nil
       else
-      # Do nothing, as stripped from sorted_params hash
+        sorted_params[data_unchecked] = nil
       end
     end
+    # Ending up with smthg like {"last_name"=>"destroy", "address"=>nil}
     sorted_params
   end
 

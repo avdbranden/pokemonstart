@@ -69,7 +69,8 @@
 
                       <td class="consent-td">
                         <div class="consent-checkbox required">
-                          <%= f.input type.to_sym, as: :boolean, label: consent_status, disabled: true, class: "consent-status required", :input_html => { :checked => true } %>
+
+                          <%= f.input type.to_sym, as: :boolean, label: consent_status, disabled: true, class: "consent-status required", input_html: { checked: true } %>
                         </div>
                       </td>
 
@@ -83,7 +84,8 @@
 
                       <td class="consent-td">
                         <div class="consent-checkbox">
-                          <%= f.input type.to_sym, as: :boolean, label: consent_status, disabled: true, class: "consent-status not-required", :input_html => { :checked => true } %>
+
+                          <%= f.input type.to_sym, as: :boolean, label: consent_status, disabled: true, class: "consent-status not-required", input_html: { checked: true } %>
                         </div>
                       </td>
 
