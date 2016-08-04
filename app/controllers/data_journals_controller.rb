@@ -98,7 +98,7 @@ class DataJournalsController < ApplicationController
   end
 
   def destroy_current_user
-    # current_user.destroy
+    # current_user.destroy # <-- Uncomment this to make it work
     flash[:alert] = "Your account has been deleted"
     flash[:notice] = "We will now stop processing your personal data"
     redirect_to root_path
