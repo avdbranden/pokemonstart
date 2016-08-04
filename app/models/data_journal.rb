@@ -2,7 +2,8 @@ class DataJournal < ActiveRecord::Base
   # == Constants ============================================================
 
   # == Attributes ===========================================================
-  attr_accessor :custom_data
+  attr_accessor :email, :first_name, :last_name, :address, :phone_number,
+  :birth_date, :occupation
 
   # == Extensions ===========================================================
 

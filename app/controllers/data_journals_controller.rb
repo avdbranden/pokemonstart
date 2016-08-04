@@ -1,5 +1,5 @@
 class DataJournalsController < ApplicationController
-  before_action :set_data_journal, only: %i(index)
+  before_action :set_data_journal, only: %i(index update)
 
 
   # Custom helper to enable use of 'required' in data_journal view
@@ -22,19 +22,29 @@ class DataJournalsController < ApplicationController
   end
 
   def update           # PATCH users/:id/data_journals/:id
-    @data_journal = DataJournal.find(params[:id])
-    raise
     # Check whether user has put valid password to confirm changes
     if current_user.valid_password?(params[:data_journal][:current_password])
-      @valid = "Valid"
-      redirect_to user_data_journals_path(current_user)
+      # Sort params whether data required/optional checked/unchecked
+      @sorted_params = sort_params(data_journal_params)
+      # If sorted_params contain a required data (eg: last_name)
+      if @sorted_params.has_value?("destroy")
+        # Destroy the current user
+        return destroy_current_user
+      # If all sorted_params are optional
+      else
+        # Update the user (data value replaced by 'nil' in database)
+        current_user.update(@sorted_params)
+        current_user.save
+        flash[:notice] = "We will now stop processing the selected data"
+        redirect_to user_data_journals_path(current_user)
+      end
     else
-      @valid = "Failed"
-      redirect_to root_path
+      flash[:alert] = "Invalid password"
+      redirect_to user_data_journals_path(current_user)
     end
   end
 
-  # Custom method to check whether attribute of instance presence: true
+  # Custom method to check whether model attributes of instance presence: true
   # See http://stackoverflow.com/questions/7829996/rails-how-to-test-if-an-
   #attribute-of-a-class-object-is-required-in-the-model-po
   # http://apidock.com/rails/ActiveModel/Validations/ClassMethods/validators_on
@@ -61,5 +71,36 @@ class DataJournalsController < ApplicationController
       "last_sign_in_ip", "created_at","updated_at", "admin"
     # Remove personal data not filled out by user
       ).delete_if { |type, data| data.blank? }
+  end
+
+  def data_journal_params
+    # Strong params
+    params.require(:data_journal).permit(:email, :first_name, :last_name, :address, :phone_number,
+    :birth_date, :occupation)
+  end
+
+  def sort_params(data_journal_params)
+    sorted_params = {}
+    data_journal_params.each do |data, checked|
+      # If the data required & checked not to be unprocessed
+      # Change data by 'destroy' to tell controller to destroy
+      if required?(User, data) && checked == "1"
+        sorted_params[data] = "destroy"
+      # If the data optional & checked not to be unprocessed
+      # Change data by 'nil' to erase them from database
+      elsif checked == "1"
+        sorted_params[data] = nil
+      else
+      # Do nothing, as stripped from sorted_params hash
+      end
+    end
+    sorted_params
+  end
+
+  def destroy_current_user
+    # current_user.destroy
+    flash[:alert] = "Your account has been deleted"
+    flash[:notice] = "We will now stop processing your personal data"
+    redirect_to root_path
   end
 end
