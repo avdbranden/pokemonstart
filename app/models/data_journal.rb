@@ -1,26 +1,25 @@
-class User < ActiveRecord::Base
+class DataJournal < ActiveRecord::Base
   # == Constants ============================================================
 
   # == Attributes ===========================================================
+  attr_accessor :email, :first_name, :last_name, :address, :phone_number,
+  :birth_date, :occupation
 
   # == Extensions ===========================================================
 
   # == Relationships ========================================================
-  has_many :ratings, dependent: :destroy
-  has_one :data_journal, dependent: :nullify
+  belongs_to :user
+  has_many :consent_withdrawals
+  has_many :consent_gifts
+  has_many :downloads
+  has_many :uploads
 
   # == Validations ==========================================================
-  validates :email, presence: true, uniqueness: true
-  validates :first_name, presence: true
-  validates :last_name, presence: true
+  validates :user_id, presence: true, uniqueness: true
 
   # == Scopes ===============================================================
 
   # == Callbacks ============================================================
-  # Include default devise modules. Others available are:
-  # :confirmable, :lockable, :timeoutable and :omniauthable
-  devise :database_authenticatable, :registerable,
-         :recoverable, :rememberable, :trackable, :validatable
 
   # == Class Methods ========================================================
 

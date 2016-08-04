@@ -1,0 +1,35 @@
+<div class="edits-users">
+  <div class="container">
+    <div class="row">
+      <div class="col-xs-12 col-md-6 col-md-offset-3">
+        <div class="panel panel-primary ">
+          <div class="panel-heading text-center">
+            <h2>Edit your trainer profile!</h2>
+          </div>
+          <div class="panel-body">
+            <% # Use url_for to match the patch route %>
+            <%= simple_form_for [@user], url: url_for(@user), method: :patch do |f| %>
+
+              <div class="form-inputs">
+                <%= f.input :first_name %>
+                <%= f.input :last_name %>
+                <%= f.input :birth_date %>
+                <%= f.input :address %>
+                <%= f.input :phone_number %>
+                <%= f.input :occupation %>
+                <%= f.input :email %>
+              </div>
+
+              <div class="form-actions">
+                <%= f.button :submit, "Edit trainer profile", class: "btn btn-success btn-lg" %>
+              </div>
+            <% end %>
+          </div>
+          <div class="panel-footer">
+            <%= link_to "Cancel", pokemons_path, class: "btn btn-primary" %>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

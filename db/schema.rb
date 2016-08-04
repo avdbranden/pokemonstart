@@ -11,10 +11,64 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160801122111) do
+ActiveRecord::Schema.define(version: 20160802135948) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "consent_gifts", force: :cascade do |t|
+    t.integer  "dp_version_id"
+    t.integer  "data_journal_id"
+    t.datetime "created_at",      null: false
+    t.datetime "updated_at",      null: false
+  end
+
+  add_index "consent_gifts", ["data_journal_id"], name: "index_consent_gifts_on_data_journal_id", using: :btree
+  add_index "consent_gifts", ["dp_version_id"], name: "index_consent_gifts_on_dp_version_id", using: :btree
+
+  create_table "consent_withdrawals", force: :cascade do |t|
+    t.integer  "dp_version_id"
+    t.integer  "data_journal_id"
+    t.datetime "created_at",      null: false
+    t.datetime "updated_at",      null: false
+  end
+
+  add_index "consent_withdrawals", ["data_journal_id"], name: "index_consent_withdrawals_on_data_journal_id", using: :btree
+  add_index "consent_withdrawals", ["dp_version_id"], name: "index_consent_withdrawals_on_dp_version_id", using: :btree
+
+  create_table "data_journals", force: :cascade do |t|
+    t.integer  "user_id"
+    t.boolean  "consent_active",                        default: true, null: false
+    t.integer  "consent_given_count",                   default: 1,    null: false
+    t.datetime "current_consent_given_at"
+    t.integer  "consent_withdrawn_count",               default: 0,    null: false
+    t.datetime "current_consent_withdrawn_at"
+    t.integer  "latest_dp_version_id_consent_given_to"
+    t.integer  "data_actions_count",                    default: 0,    null: false
+    t.datetime "latest_data_action_at"
+    t.datetime "created_at",                                           null: false
+    t.datetime "updated_at",                                           null: false
+  end
+
+  add_index "data_journals", ["user_id"], name: "index_data_journals_on_user_id", using: :btree
+
+  create_table "downloads", force: :cascade do |t|
+    t.integer  "data_journal_id"
+    t.string   "format"
+    t.string   "format_language"
+    t.datetime "created_at",      null: false
+    t.datetime "updated_at",      null: false
+  end
+
+  add_index "downloads", ["data_journal_id"], name: "index_downloads_on_data_journal_id", using: :btree
+
+  create_table "dp_versions", force: :cascade do |t|
+    t.string   "internal_ref"
+    t.text     "content"
+    t.datetime "date"
+    t.datetime "created_at",   null: false
+    t.datetime "updated_at",   null: false
+  end
 
   create_table "moves", force: :cascade do |t|
     t.string   "name"
@@ -47,6 +101,16 @@ ActiveRecord::Schema.define(version: 20160801122111) do
   add_index "ratings", ["pokemon_id"], name: "index_ratings_on_pokemon_id", using: :btree
   add_index "ratings", ["user_id"], name: "index_ratings_on_user_id", using: :btree
 
+  create_table "uploads", force: :cascade do |t|
+    t.integer  "data_journal_id"
+    t.string   "format"
+    t.string   "format_language"
+    t.datetime "created_at",      null: false
+    t.datetime "updated_at",      null: false
+  end
+
+  add_index "uploads", ["data_journal_id"], name: "index_uploads_on_data_journal_id", using: :btree
+
   create_table "users", force: :cascade do |t|
     t.string   "email",                  default: "",    null: false
     t.string   "encrypted_password",     default: "",    null: false
@@ -72,7 +136,14 @@ ActiveRecord::Schema.define(version: 20160801122111) do
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
   add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
 
+  add_foreign_key "consent_gifts", "data_journals"
+  add_foreign_key "consent_gifts", "dp_versions"
+  add_foreign_key "consent_withdrawals", "data_journals"
+  add_foreign_key "consent_withdrawals", "dp_versions"
+  add_foreign_key "data_journals", "users"
+  add_foreign_key "downloads", "data_journals"
   add_foreign_key "moves", "pokemons"
   add_foreign_key "ratings", "pokemons"
   add_foreign_key "ratings", "users"
+  add_foreign_key "uploads", "data_journals"
 end
