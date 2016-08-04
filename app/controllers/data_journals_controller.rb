@@ -1,6 +1,7 @@
 class DataJournalsController < ApplicationController
   before_action :set_data_journal, only: %i(index)
 
+
   # Custom helper to enable use of 'required' in data_journal view
   helper_method :required?
 
@@ -22,6 +23,7 @@ class DataJournalsController < ApplicationController
 
   def update           # PATCH users/:id/data_journals/:id
     @data_journal = DataJournal.find(params[:id])
+    raise
     # Check whether user has put valid password to confirm changes
     if current_user.valid_password?(params[:data_journal][:current_password])
       @valid = "Valid"
