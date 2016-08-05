@@ -5,7 +5,7 @@
 .data-journal-data-overview {
   margin-top: 100px;
 }
-.data-journal-data-overview  h2 {
+.data-journal-data-overview  h1 {
   text-align: center;
 }
 .data-journal-data-overview  p {
@@ -20,4 +20,35 @@ div.hidden {
 }
 .panel p {
   text-align: center;
+}
+
+div.download-data {
+  text-align: center;
+}
+
+div.download-data p {
+  text-align: left;
+}
+
+div.download-card {
+  display: flex;
+  justify-content: space-around;
+  padding: 20px 20px;
+}
+
+div.download-pdf {
+  display: flex;
+  flex-direction: column;
+}
+
+div.download-file {
+  display: flex;
+  flex-direction: column;
+  border: 1px solid $gray-lighter;
+  border-radius: 5px;
+}
+
+div.download-file i {
+  font-size: 90px;
+  padding: 20px;
 }
