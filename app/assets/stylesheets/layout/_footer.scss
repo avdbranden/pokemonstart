@@ -1,11 +1,18 @@
 .footer {
   display: flex;
-  padding: 10px 0 20px;
+  padding: 25px 35px 20px;
   border-top: 1px solid #ddd;
-  font-size: 13px;
+  font-size: 16px;
   margin-bottom: 15px;
+  li {
+    margin: 0px;
+    margin-top: auto;
+    padding-right: 40px;
+    font-size: 18px
+  }
   p {
-    margin: 0;
+    margin-top: auto;
+    font-size: 20px;
   }
 }
 
