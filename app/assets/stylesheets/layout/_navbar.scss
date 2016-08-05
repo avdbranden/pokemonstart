@@ -29,19 +29,22 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
+  a {
+    font-size: 18px;
+  }
 }
 
 /* Navbar item */
 .navbar-wagon-item {
   flex: 0 1 auto;
   cursor: pointer;
-  padding: 0 20px;
+  padding: 0 40px;
 }
 
 /* Navbar standard link */
 .navbar-wagon-link {
   color: #616668;
-  font-size: 14px;
+  font-size: 18px;
 }
 .navbar-wagon-link:hover {
   color: #da552f;
@@ -50,13 +53,13 @@
 
 /* Navbar right button */
 .navbar-wagon-button {
-  margin-left: 10px;
+  margin-left: 30px;
   padding: 0 20px;
   border-radius: 20em;
   line-height: 40px;
   background-color: #D23333;
   color: white;
-  font-size: 14px;
+  font-size: 18px;
   border: 2px solid #D23333;
 }
 .navbar-wagon-button:hover {
