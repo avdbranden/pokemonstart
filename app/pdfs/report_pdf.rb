@@ -5,12 +5,17 @@ class ReportPdf < Prawn::Document
 
   def initialize(attributes, view, current_user)
     super()
+    # Initialize current_user
     @current_user = current_user
+    # @attributes is a hash --> need to split in two arrays to create rows table
+    # Initialize filter_attributes from User model
     @type_sets = attributes.keys
+    # Initialize corresponding data from current user
     @data_sets = attributes.values
     @view = view
+    # Initialize a counter to use in rows table
     @counter = 0
-    # text "Report #{@type_sets} #{@data_sets}"
+    # Calling the methods below to opulate PDF
     header
     thanks_message
     table_content
