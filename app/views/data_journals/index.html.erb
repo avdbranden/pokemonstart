@@ -1,3 +1,5 @@
+<!-- Title and intro -->
+
 <div class="data-journal-intro text-center">
   <div class="container">
     <div class="row">
@@ -11,12 +13,14 @@
   </div>
 </div>
 
+<!-- Data overview -->
+
 <div class="data-journal-data-overview">
   <div class="container">
     <div class="row">
       <div class="col-xs-12 col-md-10 col-md-offset-1">
         <div class="data-journal-bullet-points">
-          <h2>Data currently udergoing processing</h2>
+          <h1>Data currently udergoing processing</h2>
           <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Esse nobis debitis atque qui officia, tenetur laudantium nulla illum aliquid, error eaque unde fugit eveniet ea, mollitia asperiores eum sapiente quaerat!</p>
           <p></p>
           <ul>
@@ -146,8 +150,29 @@
           <!-- END of big hidden form-->
         <% end %>
 
+      </div>
+    </div>
+  </div>
+</div>
 
+<!-- Download section -->
 
+<div class="download-data">
+  <div class="container">
+    <div class="row">
+      <div class="col-xs-12 col-md-10 col-md-offset-1">
+        <h1>Donwload a copy of your personal data</h1>
+        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sed voluptatem possimus quasi dolorum aspernatur, ab laudantium officia, accusamus earum quam itaque ipsa repellat error, cumque animi quisquam, perspiciatis dolor. Ratione.</p>
+        <div class="download-card">
+          <div class="download-file">
+            <i class="fa fa-file-pdf-o"></i>
+            <%= link_to "Download PDF", user_data_journals_path(current_user, format: "pdf"), class: "btn btn-success btn-lg", target: "_blank"%>
+          </div>
+          <div class="download-file">
+            <i class="fa fa-file-code-o"></i>
+            <%= link_to "Download Json", user_data_journals_path(current_user, format: "json"), class: "btn btn-success btn-lg", target: "_blank" %>
+          </div>
+        </div>
       </div>
     </div>
   </div>

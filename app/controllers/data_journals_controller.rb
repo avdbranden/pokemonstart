@@ -10,6 +10,18 @@ class DataJournalsController < ApplicationController
     # Use 'first' when exists because @data_journal is a AR collection 'where
     @data_journal = @data_journal.exists? ? @data_journal.first : create
     @attributes = filter_attributes
+
+    respond_to do |format|
+      format.html
+      format.pdf do
+        pdf = ReportPdf.new(@attributes, view_context, current_user)
+        send_data pdf.render,
+        filename: "#{Date.today} - Pokémon Starter Data Privacy Report.pdf",
+        disposition: "inline", # <-- To open PDF in web browser
+        type: "application/pdf"
+      end
+      format.json
+    end
   end
 
   def create            # POST users/:id/data_journals

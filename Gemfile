@@ -17,7 +17,12 @@ gem 'font-awesome-sass'
 gem 'simple_form'
 gem 'autoprefixer-rails'
 
+# Populate seed with fake data
 gem 'faker'
+
+# PDF generator
+gem 'prawn'
+gem 'prawn-table'
 
 group :development, :test do
   gem 'binding_of_caller'
