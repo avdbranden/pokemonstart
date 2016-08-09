@@ -37,24 +37,28 @@ puts "Created #{bulbasaur.name}"
 Move.create!({
   name: "Tackle",
   move_cat: "Normal",
+  label: "label-info",
   pokemon_id: bulbasaur.id
 })
 
 Move.create!({
   name: "Poison powder",
-  move_cat: "Poison",
+  move_cat: "Grass",
+  label: "label-success",
   pokemon_id: bulbasaur.id
 })
 
 Move.create!({
   name: "Vine whip",
   move_cat: "Grass",
+  label: "label-success",
   pokemon_id: bulbasaur.id
 })
 
 Move.create!({
   name: "Razor leaf",
   move_cat: "Grass",
+  label: "label-success",
   pokemon_id: bulbasaur.id
 })
 bulbasaur.moves.each do |move|
@@ -75,24 +79,28 @@ puts "Created #{charmander.name}"
 Move.create!({
   name: "Scratch",
   move_cat: "Normal",
+  label: "label-info",
   pokemon_id: charmander.id
 })
 
 Move.create!({
   name: "Ember",
   move_cat: "Fire",
+  label: "label-danger",
   pokemon_id: charmander.id
 })
 
 Move.create!({
   name: "Flamethrower",
   move_cat: "Fire",
+  label: "label-danger",
   pokemon_id: charmander.id
 })
 
 Move.create!({
   name: "Dragon rage",
   move_cat: "Dragon",
+  label: "label-default",
   pokemon_id: charmander.id
 })
 charmander.moves.each do |move|
@@ -113,24 +121,28 @@ puts "Created #{squirtle.name}"
 Move.create!({
   name: "Tail whip",
   move_cat: "Normal",
+  label: "label-info",
   pokemon_id: squirtle.id
 })
 
 Move.create!({
   name: "Bubble",
   move_cat: "Water",
+  label: "label-primary",
   pokemon_id: squirtle.id
 })
 
 Move.create!({
   name: "Bite",
   move_cat: "Dark",
+  label: "label-default",
   pokemon_id: squirtle.id
 })
 
 Move.create!({
   name: "Hydro pump",
   move_cat: "Water",
+  label: "label-primary",
   pokemon_id: squirtle.id
 })
 squirtle.moves.each do |move|
@@ -151,18 +163,21 @@ puts "Created #{pikachu.name}"
 Move.create!({
   name: "Quick attack",
   move_cat: "Normal",
+  label: "label-info",
   pokemon_id: pikachu.id
 })
 
 Move.create!({
   name: "Thunder schock",
   move_cat: "Electric",
+  label: "label-warning",
   pokemon_id: pikachu.id
 })
 
 Move.create!({
   name: "Thunder bolt",
   move_cat: "Electric",
+  label: "label-warning",
   pokemon_id: pikachu.id
 })
 pikachu.moves.each do |move|

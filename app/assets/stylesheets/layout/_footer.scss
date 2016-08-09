@@ -1,33 +1,17 @@
 .footer {
-  display: flex;
   padding: 25px 35px 20px;
   border-top: 1px solid #ddd;
-  font-size: 16px;
   margin-bottom: 15px;
+  list-style: none;
   li {
-    margin: 0px;
     margin-top: auto;
     padding-right: 40px;
-    font-size: 18px
-  }
-  p {
-    margin-top: auto;
-    font-size: 20px;
-  }
-}
-
-.footer-nav {
-  flex: 1;
-  list-style: none;
-  padding: 5px 20px 5px 20px;
-  margin: 0;
-
-  li {
+    font-size: 18px;
     display: inline-block;
-    margin: 0;
   }
-
-  li ~ li {
-    margin-left: 10px;
+  li:last-child {
+    margin-top: auto;
+    margin-left: 420px;
+    font-size: 20px;
   }
 }
