@@ -1,0 +1,50 @@
+.pokemon-show {
+  margin-bottom: 60px;
+}
+
+.pokemon-left {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.pokemon-back-link {
+  margin-top: 50px;
+}
+
+.pokemon-info {
+  padding: 30px 60px 30px 60px;
+}
+
+.pokemon-characteristics {
+  display: flex;
+  justify-content: space-between;
+}
+
+.moves-list {
+  margin: 5px;
+  font-size: 18px;
+  ul {
+    padding-right: 80px;
+  }
+  li {
+    margin-top: 10px;
+  }
+}
+
+.rating-show {
+  i {
+  font-size: 20px;
+  }
+  p {
+    margin-top: 8px;
+  }
+}
+
+h3 {
+  text-align: center;
+}
+
+.form-update {
+  margin-top: 20px;
+}
