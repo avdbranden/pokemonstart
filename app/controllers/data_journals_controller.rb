@@ -7,9 +7,10 @@ class DataJournalsController < ApplicationController
 
   def index             # GET users/:id/data_journals
     # If a data_journal is in DB, show it, otherwise, create one
-    # Use 'first' when exists because @data_journal is a AR collection 'where
+    # Use 'first' when exists because @data_journal is a AR collection 'where'
     @data_journal = @data_journal.exists? ? @data_journal.first : create
     @attributes = filter_attributes
+    @user = User.find(params[:user_id])
 
     respond_to do |format|
       format.html
