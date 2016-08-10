@@ -13,4 +13,10 @@ class ApplicationController < ActionController::Base
   def configure_permitted_parameters
     devise_parameter_sanitizer.permit(:sign_up, keys: [:first_name, :last_name, :birth_date])
   end
+
+  # Redirect to pokemons_path after succesful log-in
+  # See https://github.com/plataformatec/devise/wiki/How-To%3A-Redirect-to-a-specific-page-on-successful-sign-in-and-sign-out
+  def after_sign_in_path_for(resource)
+    pokemons_path
+  end
 end
