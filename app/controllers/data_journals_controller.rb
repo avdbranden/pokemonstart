@@ -9,7 +9,8 @@ class DataJournalsController < ApplicationController
     # If a data_journal is in DB, show it, otherwise, create one
     # Use 'first' when exists because @data_journal is a AR collection 'where'
     @data_journal = @data_journal.exists? ? @data_journal.first : create
-    @attributes = filter_attributes
+    @json_attributes = filter_attributes
+    @attributes = humanize_attributes(filter_attributes)
     # @user required to enable simple form for @user for data upload
     # Alternative is to use devise's current_user in the form
     @user = User.find(params[:user_id])
@@ -88,6 +89,17 @@ class DataJournalsController < ApplicationController
       "last_sign_in_ip", "created_at","updated_at", "admin"
     # Remove personal data not filled out by user
       ).delete_if { |type, data| data.blank? }
+  end
+
+  def humanize_attributes(attributes)
+    humanized_attributes = {}
+    attributes.each do |type, data|
+      # Capitalize and change underscore by witespace
+      # e.g. "last_name" ==> "Last name"
+      humanized_type = type.capitalize.gsub("_", " ")
+      humanized_attributes[humanized_type] = data
+    end
+    humanized_attributes
   end
 
   def data_journal_params
