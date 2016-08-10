@@ -1,1 +1,1 @@
-json.data_sets @attributes
+json.data_sets @json_attributes
