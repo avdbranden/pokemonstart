@@ -13,6 +13,7 @@ class DataJournal < ActiveRecord::Base
   has_many :consent_gifts
   has_many :downloads
   has_many :uploads
+  has_many :requests
 
   # == Validations ==========================================================
   validates :user_id, presence: true, uniqueness: true

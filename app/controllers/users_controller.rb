@@ -15,12 +15,14 @@ class UsersController < ApplicationController
       @user.update(permitted_json_params) # <-- update user with filtered params
       @user.save
       file.close # <-- closing the file
-      redirect_to user_data_journals_path(@user)
+      flash[:notice] = "Thanks for the upload. Your user profile has been updated"
+      redirect_to edit_user_path(@user)
     # Else, i.e. upload via form, update user via strong params
     else
       @user.update(user_params)
       @user.save
-      redirect_to pokemons_path
+      flash[:notice] = "Your user profile has been updated"
+      redirect_to edit_user_path(@user)
     end
   end
 

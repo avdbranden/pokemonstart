@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160809112434) do
+ActiveRecord::Schema.define(version: 20160810105557) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -102,6 +102,16 @@ ActiveRecord::Schema.define(version: 20160809112434) do
   add_index "ratings", ["pokemon_id"], name: "index_ratings_on_pokemon_id", using: :btree
   add_index "ratings", ["user_id"], name: "index_ratings_on_user_id", using: :btree
 
+  create_table "requests", force: :cascade do |t|
+    t.integer  "data_journal_id"
+    t.string   "nature"
+    t.text     "content"
+    t.datetime "created_at",      null: false
+    t.datetime "updated_at",      null: false
+  end
+
+  add_index "requests", ["data_journal_id"], name: "index_requests_on_data_journal_id", using: :btree
+
   create_table "uploads", force: :cascade do |t|
     t.integer  "data_journal_id"
     t.string   "format"
@@ -146,5 +156,6 @@ ActiveRecord::Schema.define(version: 20160809112434) do
   add_foreign_key "moves", "pokemons"
   add_foreign_key "ratings", "pokemons"
   add_foreign_key "ratings", "users"
+  add_foreign_key "requests", "data_journals"
   add_foreign_key "uploads", "data_journals"
 end

@@ -5,7 +5,7 @@
         <div class="panel panel-primary ">
           <div class="panel-heading text-center">
             <h2>Welcome to Pokémon starter!</h2>
-            <h4>Please take a moment to resgister as Pokémon trainer</h4>
+            <h4>Please take a moment to register as Pokémon trainer</h4>
           </div>
           <div class="panel-body">
             <%= simple_form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
@@ -21,7 +21,9 @@
               </div>
 
               <div class="form-actions">
-                <%= f.button :submit, "Sign up", class: "btn btn-primary btn-lg" %>
+                <%= f.input :terms, as: :boolean, label: ("I agree to the #{link_to 'Terms of Services', terms_path, target:'_blank'}").html_safe %>
+                <%= f.input :dataprivacy, as: :boolean, label: ("I agree to the #{link_to 'Data Privacy Policy', dataprivacy_path, target:'_blank'}").html_safe %>
+                <%= f.button :submit, "Sign up", class: "btn btn-primary btn-lg disabled sign-up-btn" %>
               </div>
             <% end %>
           </div>
