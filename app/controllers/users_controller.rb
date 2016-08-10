@@ -5,24 +5,29 @@ class UsersController < ApplicationController
   end
 
   def update
+    if params[:user]
     # If upload json, i.e. params :file present, parse JSON and update user
-    if params[:user][:file]
-      file = File.open(params[:user][:file].tempfile, "r") # <-- open the file
-      json_data = JSON.parse(file.read) # <-- parse the file opened and read
-      # filter_json is custom method to enable parsing of json containing
-      # other types of data than those present in user model
-      permitted_json_params = filter_json(json_data["data_sets"])
-      @user.update(permitted_json_params) # <-- update user with filtered params
-      @user.save
-      file.close # <-- closing the file
-      flash[:notice] = "Thanks for the upload. Your user profile has been updated"
-      redirect_to edit_user_path(@user)
-    # Else, i.e. upload via form, update user via strong params
+      if params[:user][:file]
+        file = File.open(params[:user][:file].tempfile, "r") # <-- open the file
+        json_data = JSON.parse(file.read) # <-- parse the file opened and read
+        # filter_json is custom method to enable parsing of json containing
+        # other types of data than those present in user model
+        permitted_json_params = filter_json(json_data["data_sets"])
+        @user.update(permitted_json_params) # <-- update user with filtered params
+        @user.save
+        file.close # <-- closing the file
+        flash[:notice] = "Thanks for the upload. Your user profile has been updated"
+        redirect_to edit_user_path(@user)
+      # Else, i.e. upload via form, update user via strong params
+      else
+        @user.update(user_params)
+        @user.save
+        flash[:notice] = "Your user profile has been updated"
+        redirect_to edit_user_path(@user)
+      end
     else
-      @user.update(user_params)
-      @user.save
-      flash[:notice] = "Your user profile has been updated"
-      redirect_to edit_user_path(@user)
+      flash[:alert] = "No json file"
+      redirect_to user_data_journals_path(@user)
     end
   end
 
