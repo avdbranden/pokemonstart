@@ -94,8 +94,10 @@ class DataJournalsController < ApplicationController
   def humanize_attributes(attributes)
     humanized_attributes = {}
     attributes.each do |type, data|
-      filt_type = type.capitalize.gsub("_", " ")
-      humanized_attributes[filt_type] = data
+      # Capitalize and change underscore by witespace
+      # e.g. "last_name" ==> "Last name"
+      humanized_type = type.capitalize.gsub("_", " ")
+      humanized_attributes[humanized_type] = data
     end
     humanized_attributes
   end
