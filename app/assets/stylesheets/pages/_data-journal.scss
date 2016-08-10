@@ -30,29 +30,24 @@ div.download-data {
   }
 }
 
-div.download-card {
+// Download and upload card css
+
+div.icon-card {
   display: flex;
   justify-content: space-around;
   padding: 20px 20px;
-}
-
-div.download-pdf {
-  display: flex;
-  flex-direction: column;
-}
-
-div.download-file {
-  display: flex;
-  flex-direction: column;
-  border: 1px solid $gray-lighter;
-  border-radius: 5px;
-  i {
-  font-size: 90px;
-  padding: 20px;
-  }
-  i.upload {
-  text-align: center;
+  div.icon-file {
+    display: flex;
+    flex-direction: column;
+    border: 1px solid $gray-lighter;
+    border-radius: 5px;
+    i {
+    font-size: 90px;
+    padding: 20px;
+    }
+    i.upload {
+    text-align: center;
+    }
   }
 }
-
 

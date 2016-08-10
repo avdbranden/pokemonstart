@@ -20,7 +20,7 @@
     <div class="row">
       <div class="col-xs-12 col-md-10 col-md-offset-1">
         <div class="data-journal-bullet-points">
-          <h1>Data currently udnergoing processing</h1>
+          <h1>Data currently undergoing processing</h1>
           <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Esse nobis debitis atque qui officia, tenetur laudantium nulla illum aliquid, error eaque unde fugit eveniet ea, mollitia asperiores eum sapiente quaerat!</p>
           <p></p>
           <ul>
@@ -163,12 +163,12 @@
       <div class="col-xs-12 col-md-10 col-md-offset-1">
         <h1>Download your personal data</h1>
         <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sed voluptatem possimus quasi dolorum aspernatur, ab laudantium officia, accusamus earum quam itaque ipsa repellat error, cumque animi quisquam, perspiciatis dolor. Ratione.</p>
-        <div class="download-card">
-          <div class="download-file">
+        <div class="icon-card">
+          <div class="icon-file">
             <i class="fa fa-file-pdf-o"></i>
             <%= link_to "Download PDF", user_data_journals_path(current_user, format: "pdf"), class: "btn btn-success btn-lg", target: "_blank"%>
           </div>
-          <div class="download-file">
+          <div class="icon-file">
             <i class="fa fa-file-code-o"></i>
             <%= link_to "Download Json", user_data_journals_path(current_user, format: "json"), class: "btn btn-success btn-lg", target: "_blank" %>
           </div>
@@ -186,8 +186,8 @@
       <div class="col-xs-12 col-md-10 col-md-offset-1">
         <h1>Upload your personal data</h1>
         <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sed voluptatem possimus quasi dolorum aspernatur, ab laudantium officia, accusamus earum quam itaque ipsa repellat error, cumque animi quisquam, perspiciatis dolor. Ratione.</p>
-        <div class="download-card">
-          <div class="download-file">
+        <div class="icon-card">
+          <div class="icon-file">
             <i class="fa fa-cloud-upload upload"></i>
 
             <%= simple_form_for [@user], url: url_for(@user), method: :patch do |f| %>

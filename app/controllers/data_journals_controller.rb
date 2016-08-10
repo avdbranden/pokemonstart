@@ -10,6 +10,8 @@ class DataJournalsController < ApplicationController
     # Use 'first' when exists because @data_journal is a AR collection 'where'
     @data_journal = @data_journal.exists? ? @data_journal.first : create
     @attributes = filter_attributes
+    # @user required to enable simple form for @user for data upload
+    # Alternative is to use devise's current_user in the form
     @user = User.find(params[:user_id])
 
     respond_to do |format|
