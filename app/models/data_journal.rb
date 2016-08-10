@@ -3,7 +3,7 @@ class DataJournal < ActiveRecord::Base
 
   # == Attributes ===========================================================
   attr_accessor :email, :first_name, :last_name, :address, :phone_number,
-  :birth_date, :occupation
+  :birth_date, :occupation, :file
 
   # == Extensions ===========================================================
 
