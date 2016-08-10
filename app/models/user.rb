@@ -2,6 +2,8 @@ class User < ActiveRecord::Base
   # == Constants ============================================================
 
   # == Attributes ===========================================================
+  attr_accessor :terms # <-- Required to enable simple form checbox
+  attr_accessor :dataprivacy # <-- in registration new
 
   # == Extensions ===========================================================
 
