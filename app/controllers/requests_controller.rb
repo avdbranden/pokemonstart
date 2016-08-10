@@ -9,7 +9,8 @@ class RequestsController < ApplicationController
       flash[:notice] = "Your request will be handled shortly"
       redirect_to user_data_journals_path(@user)
     else
-      render "users/#{@user.id}/data_journals"
+      flash[:alert] = "Incomplete request"
+      redirect_to user_data_journals_path(@user)
     end
   end
 

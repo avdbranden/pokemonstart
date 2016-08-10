@@ -210,15 +210,25 @@
 <div class="request-section">
   <div class="container">
     <div class="row">
+      <div class="col-xs-12 col-md-10 col-md-offset-1 text-center">
+        <h1>A question? A complaint? A suggestion?</h1>
+      </div>
       <div class="col-xs-12 col-md-6 col-md-offset-3">
-        <h1>Contact us!</h1>
-        <p>We will be more than happy to respond to what you have to say about the way we process your pesonal data</p>
-        <div class="request-form">
-          <%= simple_form_for [current_user, @data_journal, @request] do |f| %>
-            <%= f.input :nature, collection: Request::NATURE_TYPES, prompt: "- Select the nature of your query" %>
-            <%= f.input :content %>
-            <%= f.button :submit, "Send", class: "btn btn-info btn-lg" %>
-          <% end %>
+        <div class="panel panel-info">
+          <div class="panel-heading text-center">
+            <h2>Contact us!</h2>
+          </div>
+          <div class="request-form">
+            <div class="panel-body">
+              <%= simple_form_for [current_user, @data_journal, @request] do |f| %>
+                <%= f.input :nature, collection: Request::NATURE_TYPES, prompt: "- Select the nature of your query" %>
+                <%= f.input :content, hint: "Must be a minimum of 20 characters long" %>
+            </div>
+            <div class="panel-footer">
+                <%= f.button :submit, "Send", class: "btn btn-info btn-lg" %>
+              <% end %>
+            </div>
+          </div>
         </div>
       </div>
     </div>
