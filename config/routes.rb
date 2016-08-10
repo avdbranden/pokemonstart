@@ -19,6 +19,10 @@ Rails.application.routes.draw do
     resources :ratings, only: %i(create update)
   end
 
+  # Routes for pages
+  get '/terms', to: 'pages#terms'
+  get '/dataprivacy', to: 'pages#dataprivacy'
+
   # Homepage
   root to: 'pages#home'
 

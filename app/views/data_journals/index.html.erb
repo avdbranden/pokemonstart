@@ -1,154 +1,144 @@
-<!-- Title and intro -->
-
-<div class="data-journal-intro text-center">
-  <div class="container">
-    <div class="row">
-      <div class="col-xs-12 col-md-10 col-md-offset-1">
-        <div class="data-journal-first">
-          <h1>Data privacy dashboard</h1>
-          <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Esse nobis debitis atque qui officia, tenetur laudantium nulla illum aliquid, error eaque unde fugit eveniet ea, mollitia asperiores eum sapiente quaerat!</p>
-        </div>
-        </div>
-    </div>
-  </div>
-</div>
-
 <!-- Data overview -->
 
-<div class="data-journal-data-overview">
+<div class="data-overview-section">
   <div class="container">
     <div class="row">
       <div class="col-xs-12 col-md-10 col-md-offset-1">
-        <div class="data-journal-bullet-points">
-          <h1>Data currently undergoing processing</h1>
-          <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Esse nobis debitis atque qui officia, tenetur laudantium nulla illum aliquid, error eaque unde fugit eveniet ea, mollitia asperiores eum sapiente quaerat!</p>
-          <p></p>
-          <ul>
-            <li>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Itaque deserunt numquam velit doloribus optio rem illo aliquam autem id nisi excepturi ab qui odio consequuntur, ad tempore earum magni dolorum.</li>
-            <li>Sed exercitationem repellat expedita reprehenderit nemo iste nulla aperiam odio, aliquam optio officiis fugiat, commodi quo laudantium. Consequuntur ipsum porro, sequi tempore repellat, voluptatibus, provident assumenda repudiandae eius nemo quo?</li>
-            <li>Expedita, recusandae minus quaerat suscipit cumque, aliquam, possimus est molestiae provident dicta fugit nihil deleniti, perspiciatis iste officiis facilis sapiente dolore. Molestias laborum expedita modi quos alias officia quibusdam, repellendus.</li>
-          </ul>
+        <div class="data-overview-text">
+          <h1>Personal data under processing</h1>
+          <p>Below is an overview of the personal data currently being processed by Pokémon starter.</p>
         </div>
 
         <!-- Authorize changes button-->
-        <div class="data-journal-manage-auth-btn text-center">
-          <%= link_to "Change data privacy authorizations", "", class: "btn btn-primary btn-lg", id: "btn-authorize" %>
-        </div>
+
 
         <!-- START Big hidden form -->
 
-        <%= simple_form_for [current_user, @data_journal], url: url_for([current_user, @data_journal]), method: :patch do |f| %>
+        <div class="panel panel-default">
 
-          <!-- Overview data table-->
-          <div class="table-responsive data-privacy-table">
-            <table class="table table-striped table-hover table-bordered">
-              <thead>
-                <tr>
-                  <td>#</td>
-                  <td>Type</td>
-                  <td>Data</td>
-                  <td>Consent status</td>
-                  <td>Usage status</td>
-                  <td>As from</td>
-                </tr>
-              </thead>
+          <div class="panel-heading">
+            <div class="data-journal-manage-auth-btn text-center">
+              <%= link_to "Click here to change your data privacy preferences", "", class: "btn btn-primary btn-lg", id: "btn-authorize" %>
+            </div>
+          </div>
 
-              <tbody>
-                <% counter = 0 %>
-                <% consent_status = @data_journal.consent_active ? "Active" : "Not active" %>
-                <% @attributes.each do |type, data| %>
-                  <tr>
-                    <td><%= counter += 1 %></td>
-                    <td><%= type %></td>
-                    <td><%= data %></td>
+          <div class="panel-body">
 
-                    <!-- START consent column -->
+            <%= simple_form_for [current_user, @data_journal], url: url_for([current_user, @data_journal]), method: :patch do |f| %>
 
-                    <% # Use of required? helper %>
-                    <% # if User model validates presence true of type %>
-                    <% # -add 'required' and 'danger' class to input checkbox %>
-                    <% # -fire warning tooltip %>
+              <!-- Overview data table-->
+              <div class="table-responsive data-privacy-table">
+                <table class="table table-striped table-hover">
+                  <thead>
+                    <tr>
+                      <td>#</td>
+                      <td>Type</td>
+                      <td>Data</td>
+                      <td>Consent status</td>
+                      <td>Usage status</td>
+                      <td>As from</td>
+                    </tr>
+                  </thead>
 
-                    <% if required?(User, type) %>
+                  <tbody>
+                    <% counter = 0 %>
+                    <% consent_status = @data_journal.consent_active ? "Active" : "Not active" %>
+                    <% @attributes.each do |type, data| %>
+                      <tr>
+                        <td><%= counter += 1 %></td>
+                        <td><%= type %></td>
+                        <td><%= data %></td>
 
-                      <td class="consent-td">
-                        <div class="consent-checkbox required">
+                        <!-- START consent column -->
 
-                          <%= f.input type.to_sym, as: :boolean, label: consent_status, disabled: true, class: "consent-status required", input_html: { checked: true } %>
-                        </div>
-                      </td>
+                        <% # Use of required? helper %>
+                        <% # if User model validates presence true of type %>
+                        <% # -add 'required' and 'danger' class to input checkbox %>
+                        <% # -fire warning tooltip %>
 
-                      <td class="danger" data-toggle="tooltip" data-placement="right" title="Data required for the use of the service">
-                        Required
-                      </td>
+                        <% if required?(User, type) %>
 
-                    <% # if not, add 'not-required' class to input checkbox %>
+                          <td class="consent-td">
+                            <div class="consent-checkbox required">
 
-                    <% else %>
+                              <%= f.input type.to_sym, as: :boolean, label: consent_status, disabled: true, class: "consent-status required", input_html: { checked: true } %>
+                            </div>
+                          </td>
 
-                      <td class="consent-td">
-                        <div class="consent-checkbox">
+                          <td class="danger" data-toggle="tooltip" data-placement="right" title="Data required for the use of the service">
+                            Required
+                          </td>
 
-                          <%= f.input type.to_sym, as: :boolean, label: consent_status, disabled: true, class: "consent-status not-required", input_html: { checked: true } %>
-                        </div>
-                      </td>
+                        <% # if not, add 'not-required' class to input checkbox %>
 
-                      <td class="info" data-toggle="tooltip" data-placement="right" title="Data optional for the use of the service">
-                          Optional
-                      </td>
+                        <% else %>
+
+                          <td class="consent-td">
+                            <div class="consent-checkbox">
+
+                              <%= f.input type.to_sym, as: :boolean, label: consent_status, disabled: true, class: "consent-status not-required", input_html: { checked: true } %>
+                            </div>
+                          </td>
+
+                          <td class="info" data-toggle="tooltip" data-placement="right" title="Data optional for the use of the service">
+                              Optional
+                          </td>
+
+                        <% end %>
+
+                        <!-- END consent column -->
+
+                        <td><%= current_user.created_at.strftime("%b %d, %Y") %></td>
+                      </tr>
 
                     <% end %>
+                  </tbody>
+                </table>
+              </div>
 
-                    <!-- END consent column -->
-
-                    <td><%= current_user.created_at.strftime("%b %d, %Y") %></td>
-                  </tr>
-
-                <% end %>
-              </tbody>
-            </table>
-          </div>
-
-          <div class="container">
-            <div class="row">
-              <div class="col-xs-12 col-md-6 col-md-offset-2">
-                <!-- Show up when required data checked-->
-                <div id="about-to-leave" class="hidden">
-                  <div class="panel panel-danger">
-                    <div class="panel-heading">
-                      <h4>The data you selected is required for Pokémon starter to continue the services</p>
-                    </div>
-                    <div class="panel-body">
-                      <h4>Warning</h2>
-                      <p>When confirming the changes below your account will be deleted and you will leave the application</p>
+              <div class="container">
+                <div class="row">
+                  <div class="col-xs-12 col-md-6 col-md-offset-2">
+                    <!-- Show up when required data checked-->
+                    <div id="about-to-leave" class="hidden">
+                      <div class="panel panel-danger">
+                        <div class="panel-heading">
+                          <h4>The data you selected is required for Pokémon starter to continue the services</p>
+                        </div>
+                        <div class="panel-body">
+                          <h4>Warning</h2>
+                          <p>When confirming the changes below your account will be deleted and you will leave the application</p>
+                        </div>
+                      </div>
                     </div>
                   </div>
                 </div>
               </div>
-            </div>
-          </div>
 
-          <!-- Confirm changes button-->
-          <div class="container">
-            <div class="row">
-              <div class="div col-xs-12 col-md-4 col-md-offset-3">
-                <div id="password-confirmation panel">
-                  <div class="panel-footer">
-                    <%= f.error_notification %>
-                    <div class="form-inputs">
-                      <%= f.input :current_password, hint: "we need your current password to confirm your changes", required: true %>
-                    </div>
-                    <div class="form-actions text-center">
-                      <%= f.button :submit, "Confirm changes", class: "btn btn-danger btn-lg" %>
+              <!-- Confirm changes button-->
+              <div class="container">
+                <div class="row">
+                  <div class="div col-xs-12 col-md-4 col-md-offset-3">
+                    <div id="password-confirmation" class="panel">
+                      <div class="panel-footer">
+                        <%= f.error_notification %>
+                        <div class="form-inputs">
+                          <%= f.input :current_password, hint: "we need your current password to confirm your changes", required: true %>
+                        </div>
+                        <div class="form-actions text-center">
+                          <%= f.button :submit, "Confirm changes", class: "btn btn-danger btn-lg" %>
+                        </div>
+                      </div>
                     </div>
                   </div>
                 </div>
               </div>
-            </div>
-          </div>
 
-          <!-- END of big hidden form-->
-        <% end %>
+            <% end %>
+
+          </div> <!-- /panel-body -->
+
+        </div> <!-- END of big hidden form-->
 
       </div>
     </div>
@@ -214,11 +204,11 @@
         <h1>A question? A complaint? A suggestion?</h1>
       </div>
       <div class="col-xs-12 col-md-6 col-md-offset-3">
-        <div class="panel panel-info">
-          <div class="panel-heading text-center">
-            <h2>Contact us!</h2>
-          </div>
-          <div class="request-form">
+        <div class="request-form">
+          <div class="panel panel-info">
+            <div class="panel-heading text-center">
+              <h2>Contact us!</h2>
+            </div>
             <div class="panel-body">
               <%= simple_form_for [current_user, @data_journal, @request] do |f| %>
                 <%= f.input :nature, collection: Request::NATURE_TYPES, prompt: "- Select the nature of your query" %>

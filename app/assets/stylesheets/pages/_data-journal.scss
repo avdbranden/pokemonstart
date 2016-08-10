@@ -2,12 +2,8 @@ h1 {
   text-align: center;
 }
 
-.data-journal-intro  p {
-  text-align: left;
-}
-
-.data-journal-data-overview {
-  margin-top: 100px;
+.data-overview-text {
+  margin-top: 50px;
   p {
   text-align: left;
   }
@@ -49,5 +45,9 @@ div.icon-card {
     text-align: center;
     }
   }
+}
+
+div.request-section {
+  margin-bottom: 80px;
 }
 
