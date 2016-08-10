@@ -198,9 +198,27 @@
                 <%= f.button :submit, "Upload JSON", class: "btn btn-primary btn-block" %>
               </div>
             <% end %>
-
-
           </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Request form section -->
+
+<div class="request-section">
+  <div class="container">
+    <div class="row">
+      <div class="col-xs-12 col-md-6 col-md-offset-3">
+        <h1>Contact us!</h1>
+        <p>We will be more than happy to respond to what you have to say about the way we process your pesonal data</p>
+        <div class="request-form">
+          <%= simple_form_for [current_user, @data_journal, @request] do |f| %>
+            <%= f.input :nature, collection: Request::NATURE_TYPES, prompt: "- Select the nature of your query" %>
+            <%= f.input :content %>
+            <%= f.button :submit, "Send", class: "btn btn-info btn-lg" %>
+          <% end %>
         </div>
       </div>
     </div>

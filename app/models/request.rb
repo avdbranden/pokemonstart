@@ -1,22 +1,18 @@
-class DataJournal < ActiveRecord::Base
+class Request < ActiveRecord::Base
   # == Constants ============================================================
+  NATURE_TYPES = %w(Question Complaint Suggestion Other)
 
   # == Attributes ===========================================================
-  attr_accessor :email, :first_name, :last_name, :address, :phone_number,
-  :birth_date, :occupation, :file
 
   # == Extensions ===========================================================
 
   # == Relationships ========================================================
-  belongs_to :user
-  has_many :consent_withdrawals
-  has_many :consent_gifts
-  has_many :downloads
-  has_many :uploads
-  has_many :requests
+  belongs_to :data_journal
 
   # == Validations ==========================================================
-  validates :user_id, presence: true, uniqueness: true
+  validates :nature, presence: true, inclusion: { in: NATURE_TYPES }
+  validates :content, presence: true, length: { minimum: 20,
+    too_short: "%{count} characters is the minimum allowed" }
 
   # == Scopes ===============================================================
 

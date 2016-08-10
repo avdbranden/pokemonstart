@@ -9,7 +9,9 @@ Rails.application.routes.draw do
   resources :users, only: %i(edit update) do
     # Routes for data_journals, not conflciting with devise routes because of
     # addition of option path: "accounts"
-    resources :data_journals, only: %i(index update)
+    resources :data_journals, only: %i(index update) do
+      resources :requests, only: %i(create)
+    end
   end
 
   # Routes for Pokemon, nested with ratings

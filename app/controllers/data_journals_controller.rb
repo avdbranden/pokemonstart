@@ -13,6 +13,8 @@ class DataJournalsController < ApplicationController
     # @user required to enable simple form for @user for data upload
     # Alternative is to use devise's current_user in the form
     @user = User.find(params[:user_id])
+    # @request required to enable simple form for @request
+    @request = Request.new
 
     respond_to do |format|
       format.html
